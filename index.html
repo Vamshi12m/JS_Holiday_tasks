@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            border: 1px solid;
+            width: 50vw;
+            text-align: center;
+            box-shadow: 2px 2px 20px ;
+            background-color: rgb(89, 163, 219);
+        }
+        h2,h3{
+            display: inline-block;
+        }
+        body{
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Current Weather</h1>
+
+        <h2 style="color: red;">Temperature:</h2><span id="temp"></span><br>
+        <h3 style="color: skyblue;">Wind Speed: </h3><span id="wind"></span><br>
+        <h3>Weather Code: </h3><span id="weather"></span><br>
+        <h3>Observation Time: </h3><span id="observe"></span>
+        <!-- <p>latitude: </p><span id="latitude"></span> -->
+    </div>
+
+    <script>
+        let temp = document.getElementById("temp");
+        let wind = document.getElementById("wind");
+        let weather = document.getElementById("weather");
+        let observe = document.getElementById("observe");
+        let latitude=document.getElementById("latitude")
+
+        let url = "https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&current_weather=true";
+
+        fetch(url).then((response)=>response.json())
+        .then(data=>{
+            console.log(data);
+            // data.forEach(element=>console.log(element))
+            info = data["current_weather"];
+            console.log(info["temperature"]);
+            temp.innerHTML = info["temperature"]
+            wind.innerHTML= info["windspeed"]
+            weather.innerHTML=info["weathercode"]
+            observe.innerHTML=info["time"]
+            // latitude.innerHTML=data["latitude"]
+
+        })
+    </script>
+</body>
+</html>

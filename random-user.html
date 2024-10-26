@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            display: inline-block;
+        }
+        .container{
+            border: 1px solid;
+            text-align: center;
+            width: 25vw;
+            height: 60vh;
+            border-radius: 8px;
+            background-image: url("https://i.pinimg.com/originals/83/59/8a/83598a5ab3f5371e7662b565836c0c39.jpg");
+            background-size: cover;
+          
+        }
+        img{
+            border-radius: 50%;
+            margin-top: 20px;
+        }
+        body{
+           display: flex;
+           justify-content: center;
+           height: 100vh;
+           align-items: center;
+        }
+      
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="" id="image" alt=""><br>
+        <p><b>Name:&ensp;</b></p><span id="name"></span><br>
+        <p><b>E-mail:&ensp; </b></p><span id="mail"></span><br>
+        <p><b>Location:&ensp; </b></p><span id="Location"></span><br>
+        <p><b>Phone: &ensp;</b></p> <span id="phone"></span><br>
+        <p><b>Date Of Birth:&ensp; </b></p><span id="date"></span>
+    </div>
+    <script>
+        let image=document.getElementById("image");
+        let name=document.getElementById("name");
+        let mail=document.getElementById("mail");
+        let Locate=document.getElementById("Location");
+        let phone=document.getElementById("phone");
+        let date=document.getElementById("date");
+        
+        let URL="https://randomuser.me/api/";
+        fetch(URL).then((response)=>response.json())
+        .then(data=>{
+            // console.log(data);
+            res=data["results"];
+            for(value of res){
+                res1=value["name"];
+                name.innerHTML=`${res1["title"]} ${res1["first"]} ${res1["last"]}`;
+                res2=value["picture"];
+                image.src=res2["large"];
+                mail.innerHTML=value["email"];
+                Locate.innerHTML=`${value["location"]["city"]}, ${value["location"]["country"]}`;
+                phone.innerHTML=value["phone"];
+                date.innerHTML=value["dob"]["date"];
+
+                
+               
+            }
+        });
+    
+    </script>
+</body>
+</html>
